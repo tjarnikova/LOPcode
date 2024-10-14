@@ -98,6 +98,7 @@
 !
              xlim4(jl)=(trn(ji,jj,jk,jppo4)-rn_kmpphy(jl)*rn_nutthe)&
      &                /(trn(ji,jj,jk,jppo4)+rn_kmpphy(jl)*(1.-rn_nutthe))
+             lim4po4(ji,jj,jk,jl-jpmac)=xlim4(jl)
 !
              xlim5(jl)=(trn(ji,jj,jk,jpsil)-rn_sildia*rn_nutthe)    &
      &                /(trn(ji,jj,jk,jpsil)+rn_sildia*(1.-rn_nutthe))
@@ -109,6 +110,7 @@
 !
              xlim4(jl)=(trn(ji,jj,jk,jppo4)-rn_kmpphy(jl)*rn_nutthe)&
      &                /(trn(ji,jj,jk,jppo4)+rn_kmpphy(jl)*(1.-rn_nutthe))
+             lim4po4(ji,jj,jk,jl-jpmac)=xlim4(jl)
 !
              xlim6(jl)=(trn(ji,jj,jk,jpdin)-rn_kmnphy(jl)*rn_nutthe)&
      &                /(trn(ji,jj,jk,jpdin)+rn_kmnphy(jl)*(1.-rn_nutthe))
@@ -126,6 +128,8 @@
 !
              xlim4(jl)=(trn(ji,jj,jk,jppo4)-rn_kmpphy(jl)*rn_nutthe)&
      &                /(trn(ji,jj,jk,jppo4)+rn_kmpphy(jl)*(1.-rn_nutthe))
+             lim4po4(ji,jj,jk,jl-jpmac)=xlim4(jl)
+
              dinlim =  (trn(ji,jj,jk,jpdin)-rn_kmnphy(jl)*rn_nutthe)&
      &                /(trn(ji,jj,jk,jpdin)+rn_kmnphy(jl)*(1.-rn_nutthe))
 !
@@ -220,6 +224,12 @@
       CALL iom_put("lim3fe_pic", lim3fe(:,:,:,4) )
       CALL iom_put("lim3fe_pha", lim3fe(:,:,:,5) )
       CALL iom_put("lim3fe_fix", lim3fe(:,:,:,6) )
+      CALL iom_put("lim4po4_dia", lim4po4(:,:,:,1) )
+      CALL iom_put("lim4po4_mix", lim4po4(:,:,:,2) )
+      CALL iom_put("lim4po4_coc", lim4po4(:,:,:,3) )
+      CALL iom_put("lim4po4_pic", lim4po4(:,:,:,4) )
+      CALL iom_put("lim4po4_pha", lim4po4(:,:,:,5) )
+      CALL iom_put("lim4po4_fix", lim4po4(:,:,:,6) )
       CALL iom_put("lim8light_dia", lim8light(:,:,:,1) )
       CALL iom_put("lim8light_mix", lim8light(:,:,:,2) )
       CALL iom_put("lim8light_coc", lim8light(:,:,:,3) )
