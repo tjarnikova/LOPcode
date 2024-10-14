@@ -630,6 +630,12 @@ CONTAINS
       &  torgel(jpi,jpj,jpk), &
       &  rbafer(jpi,jpj,jpk),ubafer(jpi,jpj,jpk), &
       &  dinpft(jpi,jpj,jpk,jpdia:jpdia+jppft-1), &
+      &  lim2mmfe(jpi,jpj,jpk,jpdia:jpdia+jppft-1), &
+      &  lim3fe(jpi,jpj,jpk,jpdia:jpdia+jppft-1), &
+      &  lim4po4(jpi,jpj,jpk,jpdia:jpdia+jppft-1), &
+      &  lim5si(jpi,jpj,jpk,jpdia:jpdia+jppft-1), &
+      &  lim6din(jpi,jpj,jpk,jpdia:jpdia+jppft-1), &
+      &  lim8light(jpi,jpj,jpk,jpdia:jpdia+jppft-1), &
       &  xlimbac(jpi,jpj,jpk),volumt(jpi,jpj,jpk),grazing(jpi,jpj,jpk,3), &
       &  prodt(jpi,jpj,jpk),ppint(jpi,jpj),ppt(jpi,jpj,jpk), &
       &  pptdoc(jpi,jpj,jpk),trophic(jpi,jpj,jpk,3), &
