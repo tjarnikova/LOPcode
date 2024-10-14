@@ -47,9 +47,9 @@
 ! local declarations
       INTEGER ji, jj, jk, jl
       REAL silpot1,silpot2,silfac,pislopen,ysopt
-      REAL parlux,xchl,ekg,ekr,xlim1,xlim2,xlim3,xlim4(jpdia:jpdia+jppft-1)
+      REAL parlux,xchl,ekg,ekr,xlim1,xlim2(jpdia:jpdia+jppft-1),xlim3,xlim4(jpdia:jpdia+jppft-1)
       REAL xlim6(jpdia:jpdia+jppft-1),dinlim
-      REAL xlim7,xlim8
+      REAL xlim8
 ! local dgom variables
       REAL pcphot(jpdia:jpdia+jppft-1),quopfe(jpdia:jpdia+jppft-1)
       REAL rhochl(jpdia:jpdia+jppft-1),vcfer(jpdia:jpdia+jppft-1)
@@ -117,9 +117,9 @@
 !    Michaelis-Menten Limitation term for nutrients for bacteria -
 ! for use in degradation of DMS
             xlim1=trn(ji,jj,jk,jppo4)/(trn(ji,jj,jk,jppo4)+rn_kmpbac)
-            xlim2=trn(ji,jj,jk,jpfer)/(trn(ji,jj,jk,jpfer)+rn_kmfbac)
+            xlim2(1)=trn(ji,jj,jk,jpfer)/(trn(ji,jj,jk,jpfer)+rn_kmfbac)
             xlim3=trn(ji,jj,jk,jpdoc)/(trn(ji,jj,jk,jpdoc)+rn_kmobac)
-            xlimbac(ji,jj,jk)=min(xlim1,xlim2,xlim3)
+            xlimbac(ji,jj,jk)=min(xlim1,xlim2(1),xlim3)
 ! N2 fixers
            jl = jpfix
 ! michaelis menten P
@@ -146,18 +146,17 @@
             xlim1 = (rn_rhfphy(jl)*rn_qmaphy(jl)-rn_qmaphy(jl))*    &
      &        (rn_qmaphy(jl)-quopfe(jl))/                           &
      &        (rn_qmaphy(jl)-rn_qmiphy(jl))+rn_qmaphy(jl)
-            xlim2 = trn(ji,jj,jk,jpfer)/(trn(ji,jj,jk,jpfer)+       &
+            xlim2(jl) = trn(ji,jj,jk,jpfer)/(trn(ji,jj,jk,jpfer)+       &
      &        rn_kmfphy(jl))
             xlim3 =min((quopfe(jl)-rn_qmiphy(jl))                       &
      &        /(rn_qopphy(jl)-rn_qmiphy(jl)),1.)*(1.+rn_nutthe)-rn_nutthe
-!            xlim7 = (4.6*etot(ji,jj,jk)-rn_tliphy(jl))*rn_nutthe/       &
-!     &        (4.6*etot(ji,jj,jk)+rn_tliphy(jl)*(1.-rn_nutthe))
+            grazing(ji,jj,jk,jl-jpmac)=xlim3
             xlimpft(ji,jj,jk,jl)=min(xlim4(jl),xlim5(jl),xlim6(jl),xlim3)
 ! 
 ! Fe uptake rate 
 !
             vcfer(jl) = rn_mumpft(jl)*(1.+rn_resphy(jl))                   &
-     &        *xlim1*min(xlim4(jl),xlim5(jl),xlim6(jl),xlim2)
+     &        *xlim1*min(xlim4(jl),xlim5(jl),xlim6(jl),xlim2(jl))
 !
 ! 4.6 micromol photons/J at 550 nm
 !
@@ -168,6 +167,7 @@
 
 ! light limitation
             xlim8      = (1.-exp(-perfrm(jl)/(pctnut+rtrn)))
+            resphy(ji,jj,jk,jl,1)=xlim8
             pcphot(jl) = pctnut*xlim8
             rhochl(jl)=rn_thmphy(jl)*pcphot(jl)/(perfrm(jl)+rtrn)
 !
@@ -180,6 +180,11 @@
             prophy(ji,jj,jk,jl,1) = pcphot(jl)*trn(ji,jj,jk,jl)*rfact
             docphy(ji,jj,jk,jl)   = prophy(ji,jj,jk,jl,1)*docpro
            END DO
+           out3d(ji,jj,jk)=xlim2(jpcoc)
+           trophic(ji,jj,jk,1)=xlim2(jppic)
+           trophic(ji,jj,jk,2)=xlim2(jppha)
+           trophic(ji,jj,jk,3)=xlim2(jpfix)
+
 !
 !    FE/C and Si/C of diatoms
 !    ------------------------
