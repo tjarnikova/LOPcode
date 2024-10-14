@@ -207,5 +207,21 @@
         END DO
       END DO
       RETURN
+      CALL iom_put("lim2coc",out3d(:,:,:))
+      CALL iom_put("lim2pic",trophic(:,:,:,1))
+      CALL iom_put("lim2pha",trophic(:,:,:,2))
+      CALL iom_put("lim2fix",trophic(:,:,:,3))
+      CALL iom_put("lim3dia", grazing(:,:,:,1) )
+      CALL iom_put("lim3mix", grazing(:,:,:,2) )
+      CALL iom_put("lim3coc", grazing(:,:,:,3) )
+      CALL iom_put("lim3pic", grazing(:,:,:,4) )
+      CALL iom_put("lim3pha", grazing(:,:,:,5) )
+      CALL iom_put("lim3fix", grazing(:,:,:,6) )
+      CALL iom_put("lim8dia", resphy(:,:,:,jpmac+1,1) )
+      CALL iom_put("lim8mix", resphy(:,:,:,jpmac+2,1) )
+      CALL iom_put("lim8coc", resphy(:,:,:,jpmac+3,1) )
+      CALL iom_put("lim8pic", resphy(:,:,:,jpmac+4,1) )
+      CALL iom_put("lim8pha", resphy(:,:,:,jpmac+5,1) )
+      CALL iom_put("lim8fix", resphy(:,:,:,jpmac+6,1) )
       END
 #endif
