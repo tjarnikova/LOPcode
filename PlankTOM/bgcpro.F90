@@ -150,7 +150,7 @@
      &        rn_kmfphy(jl))
             xlim3 =min((quopfe(jl)-rn_qmiphy(jl))                       &
      &        /(rn_qopphy(jl)-rn_qmiphy(jl)),1.)*(1.+rn_nutthe)-rn_nutthe
-            grazing(ji,jj,jk,jl-jpmac)=xlim3
+            lim3fe(ji,jj,jk,jl-jpmac)=xlim3
             xlimpft(ji,jj,jk,jl)=min(xlim4(jl),xlim5(jl),xlim6(jl),xlim3)
 ! 
 ! Fe uptake rate 
@@ -167,7 +167,7 @@
 
 ! light limitation
             xlim8      = (1.-exp(-perfrm(jl)/(pctnut+rtrn)))
-            resphy(ji,jj,jk,jl,1)=xlim8
+            lim8light(ji,jj,jk,jl-jpmac)=xlim8
             pcphot(jl) = pctnut*xlim8
             rhochl(jl)=rn_thmphy(jl)*pcphot(jl)/(perfrm(jl)+rtrn)
 !
@@ -180,11 +180,13 @@
             prophy(ji,jj,jk,jl,1) = pcphot(jl)*trn(ji,jj,jk,jl)*rfact
             docphy(ji,jj,jk,jl)   = prophy(ji,jj,jk,jl,1)*docpro
            END DO
-           out3d(ji,jj,jk)=xlim2(jpcoc)
-           trophic(ji,jj,jk,1)=xlim2(jppic)
-           trophic(ji,jj,jk,2)=xlim2(jppha)
-           trophic(ji,jj,jk,3)=xlim2(jpfix)
-
+           ! out3d(ji,jj,jk)=xlim2(jpcoc)
+           lim2mmfe(ji,jj,jk,1)=xlim2(jpdia)
+           lim2mmfe(ji,jj,jk,2)=xlim2(jpmix)
+           lim2mmfe(ji,jj,jk,3)=xlim2(jpcoc)
+           lim2mmfe(ji,jj,jk,4)=xlim2(jppic)
+           lim2mmfe(ji,jj,jk,5)=xlim2(jppha)
+           lim2mmfe(ji,jj,jk,6)=xlim2(jpfix)
 !
 !    FE/C and Si/C of diatoms
 !    ------------------------
@@ -206,22 +208,24 @@
           END DO
         END DO
       END DO
-      CALL iom_put("lim2coc",out3d(:,:,:))
-      CALL iom_put("lim2pic",trophic(:,:,:,1))
-      CALL iom_put("lim2pha",trophic(:,:,:,2))
-      CALL iom_put("lim2fix",trophic(:,:,:,3))
-      CALL iom_put("lim3dia", grazing(:,:,:,1) )
-      CALL iom_put("lim3mix", grazing(:,:,:,2) )
-      CALL iom_put("lim3coc", grazing(:,:,:,3) )
-      CALL iom_put("lim3pic", grazing(:,:,:,4) )
-      CALL iom_put("lim3pha", grazing(:,:,:,5) )
-      CALL iom_put("lim3fix", grazing(:,:,:,6) )
-      CALL iom_put("lim8dia", resphy(:,:,:,jpmac+1,1) )
-      CALL iom_put("lim8mix", resphy(:,:,:,jpmac+2,1) )
-      CALL iom_put("lim8coc", resphy(:,:,:,jpmac+3,1) )
-      CALL iom_put("lim8pic", resphy(:,:,:,jpmac+4,1) )
-      CALL iom_put("lim8pha", resphy(:,:,:,jpmac+5,1) )
-      CALL iom_put("lim8fix", resphy(:,:,:,jpmac+6,1) )
+      CALL iom_put("lim2mmfe_dia", lim2mmfe(:,:,:,1) )
+      CALL iom_put("lim2mmfe_mix", lim2mmfe(:,:,:,2) )
+      CALL iom_put("lim2mmfe_coc", lim2mmfe(:,:,:,3) )
+      CALL iom_put("lim2mmfe_pic", lim2mmfe(:,:,:,4) )
+      CALL iom_put("lim2mmfe_pha", lim2mmfe(:,:,:,5) )
+      CALL iom_put("lim2mmfe_fix", lim2mmfe(:,:,:,6) )
+      CALL iom_put("lim3fe_dia", lim3fe(:,:,:,1) )
+      CALL iom_put("lim3fe_mix", lim3fe(:,:,:,2) )
+      CALL iom_put("lim3fe_coc", lim3fe(:,:,:,3) )
+      CALL iom_put("lim3fe_pic", lim3fe(:,:,:,4) )
+      CALL iom_put("lim3fe_pha", lim3fe(:,:,:,5) )
+      CALL iom_put("lim3fe_fix", lim3fe(:,:,:,6) )
+      CALL iom_put("lim8light_dia", lim8light(:,:,:,1) )
+      CALL iom_put("lim8light_mix", lim8light(:,:,:,2) )
+      CALL iom_put("lim8light_coc", lim8light(:,:,:,3) )
+      CALL iom_put("lim8light_pic", lim8light(:,:,:,4) )
+      CALL iom_put("lim8light_pha", lim8light(:,:,:,5) )
+      CALL iom_put("lim8light_fix", lim8light(:,:,:,6) )
       RETURN
       END
 #endif
