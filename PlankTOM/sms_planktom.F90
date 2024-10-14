@@ -527,6 +527,9 @@ MODULE sms_planktom
       REAL, PUBLIC, SAVE, ALLOCATABLE, DIMENSION(:,:,:,:) :: xlimpft
       REAL, PUBLIC, SAVE, ALLOCATABLE, DIMENSION(:,:) :: ligfer
       REAL, PUBLIC, SAVE, ALLOCATABLE, DIMENSION(:,:,:) :: trnsed,remsed
+      REAL, PUBLIC, SAVE, ALLOCATABLE, DIMENSION(:,:,:,:) ::
+lim2mmfe,lim3fe,lim4po4,lim5si,lim6din !arrays to save nutrient limitation
+values
 #    if defined key_trc_dms
 !!
 !!-----------------------------------------------------------------

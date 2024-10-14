@@ -49,7 +49,7 @@
       REAL silpot1,silpot2,silfac,pislopen,ysopt
       REAL parlux,xchl,ekg,ekr,xlim1,xlim2(jpdia:jpdia+jppft-1),xlim3,xlim4(jpdia:jpdia+jppft-1)
       REAL xlim6(jpdia:jpdia+jppft-1),dinlim
-      REAL xlim8
+      REAL xlim8,xlim9
 ! local dgom variables
       REAL pcphot(jpdia:jpdia+jppft-1),quopfe(jpdia:jpdia+jppft-1)
       REAL rhochl(jpdia:jpdia+jppft-1),vcfer(jpdia:jpdia+jppft-1)
@@ -117,9 +117,9 @@
 !    Michaelis-Menten Limitation term for nutrients for bacteria -
 ! for use in degradation of DMS
             xlim1=trn(ji,jj,jk,jppo4)/(trn(ji,jj,jk,jppo4)+rn_kmpbac)
-            xlim2(1)=trn(ji,jj,jk,jpfer)/(trn(ji,jj,jk,jpfer)+rn_kmfbac)
+            xlim9=trn(ji,jj,jk,jpfer)/(trn(ji,jj,jk,jpfer)+rn_kmfbac)
             xlim3=trn(ji,jj,jk,jpdoc)/(trn(ji,jj,jk,jpdoc)+rn_kmobac)
-            xlimbac(ji,jj,jk)=min(xlim1,xlim2(1),xlim3)
+            xlimbac(ji,jj,jk)=min(xlim1,xlim9,xlim3)
 ! N2 fixers
            jl = jpfix
 ! michaelis menten P
@@ -206,7 +206,6 @@
           END DO
         END DO
       END DO
-      RETURN
       CALL iom_put("lim2coc",out3d(:,:,:))
       CALL iom_put("lim2pic",trophic(:,:,:,1))
       CALL iom_put("lim2pha",trophic(:,:,:,2))
@@ -223,5 +222,6 @@
       CALL iom_put("lim8pic", resphy(:,:,:,jpmac+4,1) )
       CALL iom_put("lim8pha", resphy(:,:,:,jpmac+5,1) )
       CALL iom_put("lim8fix", resphy(:,:,:,jpmac+6,1) )
+      RETURN
       END
 #endif
