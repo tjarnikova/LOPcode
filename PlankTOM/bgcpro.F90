@@ -102,6 +102,7 @@
 !
              xlim5(jl)=(trn(ji,jj,jk,jpsil)-rn_sildia*rn_nutthe)    &
      &                /(trn(ji,jj,jk,jpsil)+rn_sildia*(1.-rn_nutthe))
+             lim5si(ji,jj,jk,jl-jpmac)=xlim5(jl)
 !
              xlim6(jl)=(trn(ji,jj,jk,jpdin)-rn_kmnphy(jl)*rn_nutthe)&
      &                /(trn(ji,jj,jk,jpdin)+rn_kmnphy(jl)*(1.-rn_nutthe))
@@ -230,6 +231,7 @@
       CALL iom_put("lim4po4_pic", lim4po4(:,:,:,4) )
       CALL iom_put("lim4po4_pha", lim4po4(:,:,:,5) )
       CALL iom_put("lim4po4_fix", lim4po4(:,:,:,6) )
+      CALL iom_put("lim5si_dia", lim5si(:,:,:,1) )
       CALL iom_put("lim8light_dia", lim8light(:,:,:,1) )
       CALL iom_put("lim8light_mix", lim8light(:,:,:,2) )
       CALL iom_put("lim8light_coc", lim8light(:,:,:,3) )
