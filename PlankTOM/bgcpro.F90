@@ -181,12 +181,12 @@
             docphy(ji,jj,jk,jl)   = prophy(ji,jj,jk,jl,1)*docpro
            END DO
            ! out3d(ji,jj,jk)=xlim2(jpcoc)
-!           lim2mmfe(ji,jj,jk,1)=xlim2(jpdia)
-!           lim2mmfe(ji,jj,jk,2)=xlim2(jpmix)
-!           lim2mmfe(ji,jj,jk,3)=xlim2(jpcoc)
-!           lim2mmfe(ji,jj,jk,4)=xlim2(jppic)
-!           lim2mmfe(ji,jj,jk,5)=xlim2(jppha)
-!           lim2mmfe(ji,jj,jk,6)=xlim2(jpfix)
+           lim2mmfe(ji,jj,jk,1)=xlim2(jpdia)
+           lim2mmfe(ji,jj,jk,2)=xlim2(jpmix)
+           lim2mmfe(ji,jj,jk,3)=xlim2(jpcoc)
+           lim2mmfe(ji,jj,jk,4)=xlim2(jppic)
+           lim2mmfe(ji,jj,jk,5)=xlim2(jppha)
+           lim2mmfe(ji,jj,jk,6)=xlim2(jpfix)
 !
 !    FE/C and Si/C of diatoms
 !    ------------------------
