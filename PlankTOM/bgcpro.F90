@@ -106,6 +106,7 @@
 !
              xlim6(jl)=(trn(ji,jj,jk,jpdin)-rn_kmnphy(jl)*rn_nutthe)&
      &                /(trn(ji,jj,jk,jpdin)+rn_kmnphy(jl)*(1.-rn_nutthe))
+             lim6din(ji,jj,jk,jl-jpmac)=xlim6(jl)
 !
            DO jl = jpdia+1, jpdia+jppft-2
 !
@@ -115,7 +116,7 @@
 !
              xlim6(jl)=(trn(ji,jj,jk,jpdin)-rn_kmnphy(jl)*rn_nutthe)&
      &                /(trn(ji,jj,jk,jpdin)+rn_kmnphy(jl)*(1.-rn_nutthe))
-!
+             lim6din(ji,jj,jk,jl-jpmac)=xlim6(jl)
            END DO
 !    Michaelis-Menten Limitation term for nutrients for bacteria -
 ! for use in degradation of DMS
@@ -137,6 +138,7 @@
 ! michaelis menten N
 !
              xlim6(jl)= dinlim +rn_munfix*(1.-dinlim)
+             lim6din(ji,jj,jk,jl-jpmac)=xlim6(jl)
              dinpft(ji,jj,jk,jl)=dinlim/(xlim6(jl)+rtrn)*tmask(ji,jj,jk)
 !
              DO jl = jpdia, jpdia+jppft-1
@@ -232,6 +234,12 @@
       CALL iom_put("lim4po4_pha", lim4po4(:,:,:,5) )
       CALL iom_put("lim4po4_fix", lim4po4(:,:,:,6) )
       CALL iom_put("lim5si_dia", lim5si(:,:,:,1) )
+      CALL iom_put("lim6din_dia", lim6din(:,:,:,1) )
+      CALL iom_put("lim6din_mix", lim6din(:,:,:,2) )
+      CALL iom_put("lim6din_coc", lim6din(:,:,:,3) )
+      CALL iom_put("lim6din_pic", lim6din(:,:,:,4) )
+      CALL iom_put("lim6din_pha", lim6din(:,:,:,5) )
+      CALL iom_put("lim6din_fix", lim6din(:,:,:,6) )
       CALL iom_put("lim8light_dia", lim8light(:,:,:,1) )
       CALL iom_put("lim8light_mix", lim8light(:,:,:,2) )
       CALL iom_put("lim8light_coc", lim8light(:,:,:,3) )
